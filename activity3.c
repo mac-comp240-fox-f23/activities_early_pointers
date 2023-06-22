@@ -10,8 +10,7 @@ void task1();
 int arg_modifier(int x, int *y);
 
 void task2();
-void init_array1(int nums[], int len, int mult);
-void init_array2(int nums[], int len, int mult);
+void init_array(int nums[], int len, int mult);
 
 void task3();
 
@@ -19,13 +18,15 @@ void task3();
 
 int main() {
     // Task 1: call the first example to show how a pointer to int works
-    task1();
+    // task1();
 
     // Task 2: call the second example that creates static and dynamic arrays
     task2();
 
     // Task 3: call the last example, which does string operations
-    task3();
+    // task3();
+
+    return 0;
 }
 
 
@@ -92,17 +93,11 @@ void task2() {
         exit(1);
     }
 
-    // change which pair of calls is uncommented below to see how 
-    // init_array1 and init_array2 work
-    init_array1(arr1, arr_len, 2);
-    init_array1(arr2, arr_len, 5);
-    // init_array2(arr1, arr_len, 2);
-    // init_array2(arr2, arr_len, 5);
+    init_array(arr1, arr_len, 2);
+    init_array(arr2, arr_len, 5);
 
-    // TODO: draw state of program stack and heap at this point
-
-    for (i = 0; i < arr_len; i++) {
-        printf("static: %d    dynamic: %d\n", arr1[i], arr2[i]);
+    for (i = 0; i < arr_len+2; i++) {
+        printf("[index %3d]  static: %3d    dynamic: %3d\n", i, arr1[i], arr2[i]);
     }
     free(arr2);
 }
@@ -113,24 +108,31 @@ void task2() {
  * and a multiplier, and it initializes the first len cells of the nums array
  * to hold its index times mult (using normal array indexing)
  */
-void init_array1(int *nums, int len, int mult) {
+void init_array(int *nums, int len, int mult) {
     int i;
+    int *next;
+
+    // Method 1, uses normal array indexing
     for (i=0; i < len; i++) {
         nums[i] = mult * i;
     }
+
+    // // Method 2, using pointer arithmetic to offset the starting pointer
+    // for (i=0; i < len; i++) {
+    //     *(nums + i) = mult * i;
+    // }
+
+
+    // // Method 3, using pointer arithmetic to move a pointer across array
+    // next = nums;
+    // for (i=0; i < len; i++) {
+    //     *next = mult * i;
+    //     next++;
+    // }
+
+    // TODO: draw state of program stack and heap at this point
 }
 
-/* 
- * Takes in a pointer to int (an array of integers), the length of the array
- * and a multiplier, and it initializes the first len cells of the nums array
- * to hold its index times mult (using pointer arithmetic)
- */
-void init_array2(int *nums, int len, int mult) {
-    int i;
-    for (i=0; i < len; i++) {
-        *(nums + i) = mult * i;
-    }
-}
 
 
 /* 

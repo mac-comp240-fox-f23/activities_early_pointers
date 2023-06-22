@@ -33,7 +33,7 @@ the other code file
     - a short makefile to automate the compilation process
 
 
-## A library of functions
+### A library of functions
 
 The files called `string_funcs.h` and `string_funcs.c` comprise a small
 *library* of functions. This is a common way of organizing a C program; related
@@ -79,86 +79,96 @@ program
 for homework where you will lose points if it is not there) 
 
 
-### Task 1: A simple "sales tax" example
+### Task 1: Passing data by value versus passing data by pointer
 
-- Look for the definition of the `sales_example` function in `activity2.c`. 
-- Note how the function takes in 3 inputs: the cost per item, the number of 
-items, and the sales tax rate.
-- In the function, do the following:
-    - Declare and define a variable to hold the total pre-tax amount to be paid 
-    (cost times number)
-    - Declare and define a variable to hold the total cost after incorporating 
-    sales tax
-    - Add an `if` statement to check if the sales tax rate is 0.0; it should 
-    print a message that no sales tax applies if this is the case
-    - Regardless of the outcome of the `if` statement, return the total cost 
-    calculated
-- Examine the call to `sales_example` in `main`; compile and run the program, 
-checking that the output is correct
-- Try a range of other values to ensure the correct result is returned each time
-- Incorporate the `assert` statement to automatically check for correct results,
-testing at least 4 different scenarios
+This task is based on an exercise in _Dive into Systems_. Here you will read,
+understand, and experiment with code that passes integers to a function directly,
+and through a pointer.
 
-### Task 2: Experimenting with loops
+- Look for the `task1`  and `arg_modifier` definitions and read them carefully
+- Uncomment the call in `main` to `task1`
+- Compile the program using `make` in the terminal, and run it
+- Examine the outputs: do they make sense to you?
+- Using the diagram in Figure 1 of Section 2.3 in _Dive into Systems_ as a model,
+draw a diagram that shows the program stack (including the call to `main`, 
+`task1`, and `arg_modifier`) 
+    - Show the parameter and local variables for each
+function, and their values. 
+    - Show the state of the program stack at the point in `arg_modifier` right 
+before the `return` statement
 
-- Near the top of the file, add a declaration of a function called 
-`loop_example` that returns nothing and that has no input parameters
-- In the main function, add a call to your new function
-- In the space provided below the main function, put in your definition of 
-`loop_example`
-    - First, write a simple `for` loop that loops over the integers from 10 to 
-    25, going up by 5 each time, and it prints the integer and the square of the 
-    integer each time
-    - Next, add a `while` loop that does the same thing
-    - Finally, add a `do-while` loop that does the same thing
+**Take a picture of your diagram, and include it here in the README**
 
+(In the references below is a link to a document that can help you to include
+images in Github README files)
 
-### Task 3: Exploring sizes and ranges for unsigned integer types
+### Task 2: Pointers for arrays and dynamic allocation
 
-- Read the starter code for the `utype_sizes` function: it prints a constant 
-from the `limits.h` library for the maximum value of 
-the `unsigned char` integer type, and it prints the number of bytes used by an 
-`unsigned char`
-- Using the resources listed in the References section below, research how to 
-display a value of each of the three additional types we are examining: 
-`unsigned short`, `unsigned int`, and `unsigned long`
-- Also research the min/max constants provided by the `limist.h` library
-- Add print statements for the three additional types, printing the
-maximum value for that type, and its number of bytes
+For this task you will explore an example that creates a statically-declared
+array of integers, and a dynamically-created array of integers. You will see
+two methods we can use to access or update an array: typical array-indexing
+notation, and pointer arithmetic notation.
 
-**Edit the table below to record the values you found!**
+- Look for the `task2`, and `init_array` definitions and read
+them carefully
+    - Note that `init_array` includes three different approaches to working
+    with an array where we have a pointer to the start
+    - Try each of these in turn: discuss how each works until you understand
+- Change `main` to run `task2`, and compile and run the program
+- Draw a diagram similar to Figure 3 in Section 2.4, showing the state of
+the stack and heap at a point just before `init_array` ends.
 
-| Type              | Max value  | Number Bytes |
-| :-------------:   | :-------:  | :----------: |
-| `unsigned char`   |            |              |
-| `unsigned short`  |            |              |
-| `unsigned int`    |            |              |
-| `unsigned long`   |            |              |
+**Take a picture of your second diagram, and include it here in the README**
 
+**Optional experiments:** What happens if you violate the boundaries of the 
+arrays and try to read or write to positions beyond what is allocated? 
 
-### Task 4: Exploring sizes and ranges for signed integer types
-- Near the top of the file, add a declaration for `stype_sizes`
-- In the `main` function, add a call to `stype_sizes`
-- In the space below `main`, add a definition of `stype_sizes`
-    - Base this on `utype_sizes`: four print statements
-    - Include the minimum as well as the maximum in each print statement
-    - Research the different codes needed for signed integers
+### Task 3: Manipulating strings as pointers
 
-**Edit the table below to record the values you found!**
+Here you will move beyond reading and understanding code to writing your own! 
+This task also introduces the "library" style of programming, which we will use
+in the future. The file `string_funcs.c` contains a set of function definitions
+that operate on strings (these are all similar to built-in string operations C
+provides). We separate them into their own file, and use a header file to 
+declare them within the main code file.
 
-| Type     | Min value  | Max value  | Number Bytes |
-| :----:   | :--------: | :--------: | :----------: |
-| `char`   |            |            |              |
-| `short`  |            |            |              |
-| `int`    |            |            |              |
-| `long`   |            |            |              |
+The library contains the following functions:
+- `array_strcpy(s, t)`: A function that concatenates the string t to the end of s
+(using string indexing operators)
+- `ptr_strcpy(s, t)`: A function that concatenates the string t to the end of s
+(using pointer arithmetic)
+- `my_strncpy(s, t, n)`: A function that copies at most the first n characters 
+of t to s 
+- `my_strcat(s, t)`: A function that adds the contents of t to the end of s
 
+The starter code in `string_funcs.c` contains full definitions for `array_strcat`
+and `ptr_strcpy` to illustrate two possible approaches to these problems. 
 
-### Notes 
+**Your tasks:**
+- Implement `my_strncpy` 
+- Implement `my_strcat`
+- Add test calls to `task3` to test your new functions carefully
 
-- The macro `sizeof(TYPE)` returns the number of bytes used for a particular
-  data type by the compiler on the particular hardware where the program is
-  compiled and run. The `%zu` code is used to print the result of `sizeof`!
+**Important notes:** 
+- All of these functions are real string manipulation functions in C, in the `string.h` library. 
+   - Don't use those definitions in implementing these functions, the point is for
+you to practice the underlying basic operations
+   - Even in the `string.h` library itself, many of these operations are 
+incredibly insecure! Don't use them carelessly!
+- Remember, a character array have more capacity allocated than it currenty uses
+- The end of the current contents is a zero (`'\0'`), and you must allocate room
+for that extra character when allocating the string
+- The strcpy implementations both rely on a C "trick:" assignment statements
+in C are _expressions_ whose value is the value stored in the left hand variable
+   - `(x = 10)` is an expression whose value is `10`
+   - `x = (y = 3)` is perfectly valid: both `x` and `y` will be set to 3
+   - `(x = y - 3) > 0` is a boolean expression that sets `x` to be `y - 3` and
+   then evaluates to true (`1` in C) if the value of `x` is greater than 0
+
+The `ptr_strcpy` function has two versions: the explicit version 
+(uncommented) and simplified version (commented out). 
+**For an optional challenge, write simplified solutions for each of your functions!**
+
 
 ### Feeling stuck or confused?
 
@@ -177,6 +187,8 @@ You should comment each function you write like you would for Java:
 
 ## References
 
+- Help with Markdown in Github
+  - [Basic writing and formatting syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 - Makefile guides
   - [An Introduction to Makefiles](https://www.gnu.org/software/make/manual/html_node/Introduction.html), by GNU
   - [Makefile Tutorials and Examples to Build From](https://earthly.dev/blog/make-tutorial/), by Aniket Bhattacharyea
@@ -187,8 +199,3 @@ You should comment each function you write like you would for Java:
   - _C: A Reference Manual_, by Harbitson and Steele
 - The `assert` statement
   - [assert reference from cplusplus.com](https://cplusplus.com/reference/cassert/assert/?kw=assert)
-- Printf formatting codes
-  - [printf format specifier reference from cplusplus.com](http://www.cplusplus.com/reference/cstdio/printf/).
-  [_Format Specifiers in C_](https://www.thecrazyprogrammer.com/2016/10/format-specifiers-c.html) by The Crazy Programmer
-  - [_C Programming/limits.h](https://en.wikibooks.org/wiki/C_Programming/limits.h)
-  - [limits.h reference in tutorialspoint](https://www.tutorialspoint.com/c_standard_library/limits_h.htm)
