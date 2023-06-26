@@ -46,7 +46,7 @@ file (with the extension `.c`) defines the functions and constants.
 **Open `string_funcs.h` and `string_funcs.c` to see what they contain.**
 
 
-### To use a user-defined libraryr
+### To use a user-defined library
 
 **Open at `activity3.c` and note this line near the beginning of the file:**
 
