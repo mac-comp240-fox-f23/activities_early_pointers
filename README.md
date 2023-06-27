@@ -1,5 +1,7 @@
 # Activity 3: Program Memory, Pointers, Malloc
 
+## Put name here
+
 Folder: `activities_early_pointers`
 
 This is an introduction to:
@@ -75,8 +77,10 @@ program
 ## Your tasks
 
 ### First Steps
-- Add your name in a comment at the top of each file you edit! (Good practice
-for homework where you will lose points if it is not there) 
+- Add your name(s) in a comment at the top of each file you edit! (Good practice
+for homework where you will lose points if it is not there)
+- Also, add your name(s) to this README document: Some of you have Github usernames that
+are very different from your actual names. This makes it easier to know quickly who is who!
 
 
 ### Task 1: Passing data by value versus passing data by pointer
